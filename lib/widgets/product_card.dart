@@ -37,18 +37,51 @@ class ProductCard extends StatelessWidget {
             const SizedBox(height: 5),
             Flexible(
               child: Text(
+                style: const TextStyle(
+                  fontSize: 12,
+                ),
                 product.description,
                 maxLines: 5,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
             const SizedBox(height: 10),
-            Text(
-              '\$${product.price}',
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.green,
+            RichText(
+              text: TextSpan(
+                children: <TextSpan>[
+                  TextSpan(
+                    text: '\$${product.price}',
+                    style: TextStyle(
+                      fontSize: 12,
+                      decoration: TextDecoration.lineThrough,
+                      decorationColor: Colors.grey.withOpacity(0.5),
+                      decorationThickness: 2.0,
+                      color:
+                          Colors.grey.withOpacity(0.5), // Set the opacity here
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const TextSpan(
+                    text: '  ',
+                  ),
+                  TextSpan(
+                    text: '\$${product.discountedPrice}',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.black, // Set the opacity here
+                    ),
+                  ),
+                  const TextSpan(
+                    text: '  ',
+                  ),
+                  TextSpan(
+                    text: '${product.discountPercentage}% off',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.green, // Set the opacity here
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

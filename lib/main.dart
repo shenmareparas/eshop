@@ -26,44 +26,52 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<FirebaseApp>(
-        future: Firebase.initializeApp(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return MaterialApp(
-              theme: ThemeData(
-                colorScheme:
-                    ColorScheme.fromSeed(seedColor: const Color(0xFF0c54be)),
-                useMaterial3: true,
+      future: Firebase.initializeApp(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return MaterialApp(
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
+              useMaterial3: true,
+            ),
+            home: const Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
               ),
-              home: const Scaffold(
-                body: Center(
-                  child: CircularProgressIndicator(),
-                ),
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return MaterialApp(
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
+              useMaterial3: true,
+            ),
+            home: Scaffold(
+              body: Center(
+                child: SelectableText(snapshot.error.toString()),
               ),
-            );
-          } else if (snapshot.hasError) {
-            return MaterialApp(
-              home: Scaffold(
-                body: Center(
-                  child: SelectableText(snapshot.error.toString()),
-                ),
-              ),
-            );
-          }
-          return MultiProvider(
-            providers: [
-              ChangeNotifierProvider(create: (_) {
-                return ThemeProvider();
-              }),
-              ChangeNotifierProvider(create: (_) {
-                return UserProvider();
-              }),
-            ],
-            child: Consumer<ThemeProvider>(
-                builder: (context, themeProvider, child) {
+            ),
+          );
+        }
+        return MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) {
+              return ThemeProvider();
+            }),
+            ChangeNotifierProvider(create: (_) {
+              return UserProvider();
+            }),
+          ],
+          child: Consumer<ThemeProvider>(
+            builder: (context, themeProvider, child) {
               return MaterialApp(
                 debugShowCheckedModeBanner: false,
                 title: 'e-shop',
+                // theme: ThemeData(
+                //   colorScheme:
+                //       ColorScheme.fromSeed(seedColor: Colors.blueAccent),
+                //   useMaterial3: true,
+                // ),
                 theme: Styles.themeData(
                     isDarkTheme: themeProvider.getIsDarkTheme,
                     context: context),
@@ -76,8 +84,10 @@ class MyApp extends StatelessWidget {
                       const ForgotPasswordScreen(),
                 },
               );
-            }),
-          );
-        });
+            },
+          ),
+        );
+      },
+    );
   }
 }
