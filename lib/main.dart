@@ -2,10 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import '../providers/theme_provider.dart';
 import '../root_screen.dart';
 
-import 'consts/theme_data.dart';
 import 'providers/user_provider.dart';
 import 'screens/auth/forgot_password.dart';
 import 'screens/auth/login.dart';
@@ -31,7 +29,8 @@ class MyApp extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return MaterialApp(
             theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
+              colorScheme:
+                  ColorScheme.fromSeed(seedColor: const Color(0xFF0C54BE)),
               useMaterial3: true,
             ),
             home: const Scaffold(
@@ -43,7 +42,8 @@ class MyApp extends StatelessWidget {
         } else if (snapshot.hasError) {
           return MaterialApp(
             theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
+              colorScheme:
+                  ColorScheme.fromSeed(seedColor: const Color(0xFF0C54BE)),
               useMaterial3: true,
             ),
             home: Scaffold(
@@ -56,25 +56,19 @@ class MyApp extends StatelessWidget {
         return MultiProvider(
           providers: [
             ChangeNotifierProvider(create: (_) {
-              return ThemeProvider();
-            }),
-            ChangeNotifierProvider(create: (_) {
               return UserProvider();
             }),
           ],
-          child: Consumer<ThemeProvider>(
+          child: Consumer(
             builder: (context, themeProvider, child) {
               return MaterialApp(
                 debugShowCheckedModeBanner: false,
                 title: 'e-shop',
-                // theme: ThemeData(
-                //   colorScheme:
-                //       ColorScheme.fromSeed(seedColor: Colors.blueAccent),
-                //   useMaterial3: true,
-                // ),
-                theme: Styles.themeData(
-                    isDarkTheme: themeProvider.getIsDarkTheme,
-                    context: context),
+                theme: ThemeData(
+                  colorScheme:
+                      ColorScheme.fromSeed(seedColor: const Color(0xFF0C54BE)),
+                  useMaterial3: true,
+                ),
                 home: const RootScreen(),
                 routes: {
                   RootScreen.routeName: (context) => const RootScreen(),

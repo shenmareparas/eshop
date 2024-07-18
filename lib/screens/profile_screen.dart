@@ -4,11 +4,9 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 import '../screens/auth/login.dart';
 import '../screens/loading_manager.dart';
-import '../services/assets_manager.dart';
 import '../widgets/subtitle_text.dart';
 
 import '../models/user_model.dart';
-import '../providers/theme_provider.dart';
 import '../providers/user_provider.dart';
 import '../services/my_app_functions.dart';
 import '../widgets/title_text.dart';
@@ -56,7 +54,6 @@ class _ProfileScreenState extends State<ProfileScreen>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -121,35 +118,6 @@ class _ProfileScreenState extends State<ProfileScreen>
                         ],
                       ),
                     ),
-              Padding(
-                padding: const EdgeInsets.all(14.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const SizedBox(height: 6),
-                    const TitlesTextWidget(
-                      label: "Settings",
-                    ),
-                    const SizedBox(height: 10),
-                    SwitchListTile(
-                      secondary: Image.asset(
-                        AssetsManager.theme,
-                        height: 34,
-                      ),
-                      title: Text(themeProvider.getIsDarkTheme
-                          ? "Dark Mode"
-                          : "Light Mode"),
-                      value: themeProvider.getIsDarkTheme,
-                      onChanged: (value) {
-                        themeProvider.setDarkTheme(themeValue: value);
-                      },
-                    ),
-                  ],
-                ),
-              ),
               Center(
                 child: ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
