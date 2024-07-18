@@ -10,7 +10,7 @@ class ProductCard extends StatelessWidget {
   bool shouldShowDiscountedPrice() {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return remoteConfig.getBool('showDiscountedPrice');
-    // return false;
+    // return true;
   }
 
   @override
